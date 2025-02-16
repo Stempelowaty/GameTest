@@ -14,8 +14,7 @@ namespace Burucki.Stage
     public class PlayState : IGameState
     {
         private GameStateMachine _stateMachine;
-
-        private RotatableRectangle _rotRect;
+        private Entity _player;
         private Texture2D _rectTexture;
 
         public PlayState(GameStateMachine stateMachine)
@@ -25,13 +24,12 @@ namespace Burucki.Stage
 
         public void Enter()
         {
-            Console.WriteLine("Entered Play State");
-            _rotRect = new RotatableRectangle(new Vector2(300, 100), new Vector2(100, 50), MathHelper.ToRadians(45));
+            Texture2D playerTexture = new Texture2D(GlobalResources.GraphicsDevice, 50, 50);
+            Color[] data = new Color[50 * 50];
+            for (int i = 0; i < data.Length; i++) data[i] = Color.Blue;
+            playerTexture.SetData(data);
 
-            _rectTexture = new Texture2D(GlobalResources.GraphicsDevice, 100, 50);
-            Color[] data = new Color[100 * 50];
-            for (int i = 0; i < data.Length; i++) data[i] = Color.Red;
-            _rectTexture.SetData(data);
+            _player = new Entity(playerTexture, new Vector2(200, 200), new Vector2(50, 50));
         }
 
         public void Exit()
@@ -45,14 +43,21 @@ namespace Burucki.Stage
             {
                 _stateMachine.ChangeState(new MenuState(_stateMachine));
             }
-            _rotRect.SetRotation(_rotRect.Rotation + 0.01f); // Rotate continuously
+            if (Keyboard.GetState().IsKeyDown(Keys.W)) _player.Move(0, -2);
+            if (Keyboard.GetState().IsKeyDown(Keys.S)) _player.Move(0, 2);
+            if (Keyboard.GetState().IsKeyDown(Keys.A)) _player.Move(-2, 0);
+            if (Keyboard.GetState().IsKeyDown(Keys.D)) _player.Move(2, 0);
+            if (Keyboard.GetState().IsKeyDown(Keys.T)) _player.Teleport(400, 300);
+            if (Keyboard.GetState().IsKeyDown(Keys.X)) _player.Push(4, 0);
+
+            _player.Update();
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            _rotRect.Draw(spriteBatch, _rectTexture);
+            _player.Draw(spriteBatch);
             spriteBatch.DrawString(GlobalResources.Font, "HOLY MOLY", new Vector2(220, 230), Color.White);
-            spriteBatch.DrawString(GlobalResources.Font, "A SPINNING RECTANGLE", new Vector2(220, 260), Color.White);
+            spriteBatch.DrawString(GlobalResources.Font, "A WALKING RECTANGLE", new Vector2(220, 260), Color.White);
         }
     }
 
