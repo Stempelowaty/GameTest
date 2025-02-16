@@ -51,7 +51,7 @@ namespace Burucki.Stage
         public void Draw(SpriteBatch spriteBatch)
         {
             _rotRect.Draw(spriteBatch, _rectTexture);
-            spriteBatch.DrawString(GlobalResources.Font, "HOLY FUCKING SHIT", new Vector2(220, 230), Color.White);
+            spriteBatch.DrawString(GlobalResources.Font, "HOLY MOLY", new Vector2(220, 230), Color.White);
             spriteBatch.DrawString(GlobalResources.Font, "A SPINNING RECTANGLE", new Vector2(220, 260), Color.White);
         }
     }
