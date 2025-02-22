@@ -44,16 +44,16 @@ namespace Burucki.Components
         public void Update()
         {
 
-            MouseState mouseState = Mouse.GetState();
-            Vector2 scaledMousePosition = new Vector2(mouseState.X / GlobalResources.ScaleFactorX, mouseState.Y / GlobalResources.ScaleFactorY);
+            Vector2 mousePos = InputManager.GetMousePosition();
+            Vector2 scaledMousePosition = new Vector2(mousePos.X / GlobalResources.ScaleFactorX, mousePos.Y / GlobalResources.ScaleFactorY);
             _isHovered = _buttonBounds.Contains(scaledMousePosition);
 
-            if (_isHovered && mouseState.LeftButton == ButtonState.Pressed && !_isClicked)
+            if (_isHovered && InputManager.IsLeftMousePressed() && !_isClicked)
             {
                 _isOpen = !_isOpen;
                 _isClicked = true;
             }
-            else if (mouseState.LeftButton == ButtonState.Released)
+            else 
             {
                 _isClicked = false;
             }
@@ -62,7 +62,7 @@ namespace Burucki.Components
             {
                 for (int i = 0; i < _options.Count; i++)
                 {
-                    if (_optionBounds[i].Contains(scaledMousePosition) && mouseState.LeftButton == ButtonState.Pressed)
+                    if (_optionBounds[i].Contains(scaledMousePosition) && InputManager.IsLeftMousePressed())
                     {
                         _selectedIndex = i;
                         _isOpen = false;

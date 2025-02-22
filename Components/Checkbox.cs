@@ -33,10 +33,10 @@ namespace Burucki.Components
 
         public void Update()
         {
-            MouseState mouseState = Mouse.GetState();
-            Vector2 scaledMousePosition = new Vector2(mouseState.X / GlobalResources.ScaleFactorX, mouseState.Y / GlobalResources.ScaleFactorY);
+            Vector2 mousePos = InputManager.GetMousePosition();
+            Vector2 scaledMousePosition = new Vector2(mousePos.X / GlobalResources.ScaleFactorX, mousePos.Y / GlobalResources.ScaleFactorY);
             _isHovered = _bounds.Contains(scaledMousePosition);
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed && _isHovered)
+            if (InputManager.IsLeftMousePressed() && _isHovered)
             {
                 _isChecked = !_isChecked;
                 OnCheckedChanged?.Invoke(_isChecked);

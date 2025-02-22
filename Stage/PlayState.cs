@@ -45,16 +45,10 @@ namespace Burucki.Stage
             {
                 _stateMachine.ChangeState(new MenuState(_stateMachine));
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.W)) _player.Move(0, -2);
-            if (Keyboard.GetState().IsKeyDown(Keys.S)) _player.Move(0, 2);
-            if (Keyboard.GetState().IsKeyDown(Keys.A)) _player.Move(-2, 0);
-            if (Keyboard.GetState().IsKeyDown(Keys.D)) _player.Move(2, 0);
-            if (Keyboard.GetState().IsKeyDown(Keys.T)) _player.Teleport(400, 300);
-            if (Keyboard.GetState().IsKeyDown(Keys.X)) _player.Push(4, 0);
-
-  
-
-
+            if (InputManager.IsKeyDown(Keys.W)) _player.Move(0, -2);
+            if (InputManager.IsKeyDown(Keys.S)) _player.Move(0, 2);
+            if (InputManager.IsKeyDown(Keys.A)) _player.Move(-2, 0);
+            if (InputManager.IsKeyDown(Keys.D)) _player.Move(2, 0);
 
             _player.Update();
         }

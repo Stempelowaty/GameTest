@@ -56,6 +56,7 @@ namespace Burucki
 
         protected override void Update(GameTime gameTime)
         {
+            InputManager.Update();
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             _stateMachine.Update(gameTime);
