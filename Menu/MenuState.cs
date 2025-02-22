@@ -60,7 +60,7 @@ namespace Burucki.Menu
             Color[] data = new Color[20 * 20];
             for (int i = 0; i < data.Length; i++) data[i] = Color.White;
             uncheckedTexture.SetData(data);
-            for (int i = 0; i < data.Length; i++) data[i] = Color.Green;
+            for (int i = 0; i < data.Length; i++) data[i] = Color.Blue;
             checkedTexture.SetData(data);
 
             _fullscreenCheckbox = new Checkbox(uncheckedTexture, checkedTexture, new Vector2(200, 100), "Fullscreen", GlobalResources.Font);

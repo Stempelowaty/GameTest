@@ -34,8 +34,7 @@ namespace Burucki.Components
         {
 
             Vector2 mousePos = InputManager.GetMousePosition();
-            Vector2 scaledMousePosition = new Vector2(mousePos.X /GlobalResources.ScaleFactorX, mousePos.Y / GlobalResources.ScaleFactorY);
-            _isHovered = _bounds.Contains(scaledMousePosition);
+            _isHovered = _bounds.Contains(mousePos);
             if (_isHovered)
             {
                 _color = Color.Gray;

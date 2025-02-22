@@ -22,14 +22,7 @@ namespace Burucki.Stage
         }
 
         public void Enter()
-        {
-            /*
-            Texture2D playerTexture = new Texture2D(GlobalResources.GraphicsDevice, 50, 50);
-            Color[] dataPlayer = new Color[50 * 50];
-            for (int i = 0; i < dataPlayer.Length; i++) dataPlayer[i] = Color.Blue;
-            playerTexture.SetData(dataPlayer);
-            */            
-            
+        {        
             _player = new Entity(GlobalResources.entityTexture, new Vector2(200, 200), new Vector2(50, 50));
 
         }

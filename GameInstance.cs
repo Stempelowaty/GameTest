@@ -84,7 +84,6 @@ namespace Burucki
         {
             _graphics.PreferredBackBufferWidth = width;
             _graphics.PreferredBackBufferHeight = height;
-
             _graphics.ApplyChanges();
             GlobalResources.UpdateScreenSize(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
             GlobalResources.ScreenWidth = width;

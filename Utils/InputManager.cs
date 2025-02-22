@@ -41,8 +41,10 @@ namespace Burucki.Utils
         // Get current mouse position
         public static Vector2 GetMousePosition()
         {
-            return new Vector2(_currentMouseState.X, _currentMouseState.Y);
+            MouseState mouseState = Mouse.GetState();
+            return new Vector2(mouseState.X / GlobalResources.ScaleFactorX, mouseState.Y / GlobalResources.ScaleFactorY);
         }
+
 
         // Check if a mouse button is pressed
         public static bool IsMouseButtonPressed(ButtonState current, ButtonState previous)
