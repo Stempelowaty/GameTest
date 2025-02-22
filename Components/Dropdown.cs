@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Burucki.Utils;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -18,6 +19,7 @@ namespace Burucki.Components
         private Rectangle _buttonBounds;
         private List<Rectangle> _optionBounds;
         private bool _isClicked;
+        private bool _isHovered;
 
         public event Action<string> OnSelectionChanged;
 
@@ -41,15 +43,17 @@ namespace Burucki.Components
 
         public void Update()
         {
-            MouseState mouse = Mouse.GetState();
-            bool isHoveringButton = _buttonBounds.Contains(mouse.Position);
 
-            if (isHoveringButton && mouse.LeftButton == ButtonState.Pressed && !_isClicked)
+            MouseState mouseState = Mouse.GetState();
+            Vector2 scaledMousePosition = new Vector2(mouseState.X / GlobalResources.ScaleFactorX, mouseState.Y / GlobalResources.ScaleFactorY);
+            _isHovered = _buttonBounds.Contains(scaledMousePosition);
+
+            if (_isHovered && mouseState.LeftButton == ButtonState.Pressed && !_isClicked)
             {
                 _isOpen = !_isOpen;
                 _isClicked = true;
             }
-            else if (mouse.LeftButton == ButtonState.Released)
+            else if (mouseState.LeftButton == ButtonState.Released)
             {
                 _isClicked = false;
             }
@@ -58,7 +62,7 @@ namespace Burucki.Components
             {
                 for (int i = 0; i < _options.Count; i++)
                 {
-                    if (_optionBounds[i].Contains(mouse.Position) && mouse.LeftButton == ButtonState.Pressed)
+                    if (_optionBounds[i].Contains(scaledMousePosition) && mouseState.LeftButton == ButtonState.Pressed)
                     {
                         _selectedIndex = i;
                         _isOpen = false;

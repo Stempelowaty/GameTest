@@ -6,7 +6,6 @@ namespace Burucki.Utils
 {
     public class Entity
     {
-        public RotatableRectangle Position { get; private set; }
         public RotatableRectangle Hitbox { get; private set; }
         public Texture2D Texture { get; private set; }
 
@@ -17,22 +16,19 @@ namespace Burucki.Utils
         public Entity(Texture2D texture, Vector2 position, Vector2 size, float rotation = 0f)
         {
             Texture = texture;
-            Position = new RotatableRectangle(position, size, rotation);
             Hitbox = new RotatableRectangle(position, size, rotation);
             _velocity = Vector2.Zero;
         }
 
         public void Move(float x, float y)
         {
-            Vector2 newPosition = Position.Position + new Vector2(x, y);
-            Position = new RotatableRectangle(newPosition, Position.Size, Position.Rotation);
+            Vector2 newPosition = Hitbox.Position + new Vector2(x, y);
             Hitbox = new RotatableRectangle(newPosition, Hitbox.Size, Hitbox.Rotation);
         }
 
         public void Teleport(float x, float y)
         {
             Vector2 newPosition = new Vector2(x, y);
-            Position = new RotatableRectangle(newPosition, Position.Size, Position.Rotation);
             Hitbox = new RotatableRectangle(newPosition, Hitbox.Size, Hitbox.Rotation);
             _velocity = Vector2.Zero; // Reset movement on teleport
         }
@@ -57,9 +53,10 @@ namespace Burucki.Utils
             }
         }
 
+  
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, Position.Position, null, Color.White, Position.Rotation, Position.Size / 2, 1f, SpriteEffects.None, 0);
+            spriteBatch.Draw(Texture, Hitbox.Position, null, Color.White, Hitbox.Rotation, Hitbox.Size / 2, 1f, SpriteEffects.None, 0);
         }
     }
 }

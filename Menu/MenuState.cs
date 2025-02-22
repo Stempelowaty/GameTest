@@ -41,7 +41,7 @@ namespace Burucki.Menu
             dropdownTexture.SetData(dropdownData);
 
             // Create dropdown
-            _dropdown = new Dropdown(dropdownTexture, dropdownTexture, new Vector2(200, 200), new List<string> { "800x600", "1024x768", "1280x720", "1920x1080" }, GlobalResources.Font);
+            _dropdown = new Dropdown(dropdownTexture, dropdownTexture, new Vector2(200, 200), new List<string> {  "1280x720", "1600x900", "1920x1080" }, GlobalResources.Font);
             _dropdown.OnSelectionChanged += (selection) =>
             {
                 string[] dimensions = selection.Split('x');
@@ -49,7 +49,7 @@ namespace Burucki.Menu
                     int.TryParse(dimensions[0], out int width) &&
                     int.TryParse(dimensions[1], out int height))
                 {
-                    Game1.Instance.UpdateResolution(width, height);
+                    GameInstance.Instance.UpdateResolution(width, height);
                 }
             };
 
@@ -66,7 +66,7 @@ namespace Burucki.Menu
             _fullscreenCheckbox = new Checkbox(uncheckedTexture, checkedTexture, new Vector2(200, 100), "Fullscreen", GlobalResources.Font);
             _fullscreenCheckbox.OnCheckedChanged += (isChecked) =>
             {
-                Game1.Instance.ToggleFullscreen(isChecked);
+                GameInstance.Instance.ToggleFullscreen(isChecked);
             };
         }
 

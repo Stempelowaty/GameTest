@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Burucki.Utils;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -31,19 +32,20 @@ namespace Burucki.Components
 
         public void Update()
         {
-            MouseState mouse = Mouse.GetState();
-            _isHovered = _bounds.Contains(mouse.Position);
-
+      
+            MouseState mouseState = Mouse.GetState();
+            Vector2 scaledMousePosition = new Vector2(mouseState.X /GlobalResources.ScaleFactorX, mouseState.Y / GlobalResources.ScaleFactorY);
+            _isHovered = _bounds.Contains(scaledMousePosition);
             if (_isHovered)
             {
                 _color = Color.Gray;
 
-                if (mouse.LeftButton == ButtonState.Pressed && !_isClicked)
+                if (mouseState.LeftButton == ButtonState.Pressed && !_isClicked)
                 {
                     _isClicked = true;
                     OnClick?.Invoke();
                 }
-                else if (mouse.LeftButton == ButtonState.Released)
+                else if (mouseState.LeftButton == ButtonState.Released)
                 {
                     _isClicked = false;
                 }
@@ -52,6 +54,8 @@ namespace Burucki.Components
             {
                 _color = Color.White;
             }
+
+
         }
 
         public void Draw(SpriteBatch spriteBatch)

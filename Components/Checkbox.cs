@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Burucki.Utils;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -12,6 +13,7 @@ namespace Burucki.Components
         private Texture2D _checkedTexture;
         private Vector2 _position;
         private bool _isChecked;
+        private bool _isHovered;
         private SpriteFont _font;
         private string _label;
         private Rectangle _bounds;
@@ -31,7 +33,10 @@ namespace Burucki.Components
 
         public void Update()
         {
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed && _bounds.Contains(Mouse.GetState().Position))
+            MouseState mouseState = Mouse.GetState();
+            Vector2 scaledMousePosition = new Vector2(mouseState.X / GlobalResources.ScaleFactorX, mouseState.Y / GlobalResources.ScaleFactorY);
+            _isHovered = _bounds.Contains(scaledMousePosition);
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed && _isHovered)
             {
                 _isChecked = !_isChecked;
                 OnCheckedChanged?.Invoke(_isChecked);
